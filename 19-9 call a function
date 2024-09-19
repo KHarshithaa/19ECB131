@@ -1,0 +1,14 @@
+//Function call by value
+
+#include <stdio.h>
+void sample_function(int a, int b) {
+      printf("\nInside sample_function\nValue of a = %d , b = %d",a,b);
+}
+
+int main() {
+   int a=5 , b=6;
+   sample_function(a,b);
+    printf("\n\nInside main function\nValue of a = %d , b = %d", a , b);
+    
+    return 0;
+}
