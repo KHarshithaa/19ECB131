@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+// Stack implementation
+void stack_operations() {
+    int stack[MAX], top = -1;
+    int choice, element;
+
+    while (1) {
+        printf("\nStack Operations:\n");
+        printf("1. Add element to stack\n");
+        printf("2. Remove element from stack\n");
+        printf("3. Show stack\n");
+        printf("4. Exit\n");
+        printf("Enter your choice (1/2/3/4): ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                if (top == MAX - 1) {
+                    printf("Stack overflow! Cannot add more elements.\n");
+                } else {
+                    printf("Enter the element to add to the stack: ");
+                    scanf("%d", &element);
+                    stack[++top] = element;
+                    printf("'%d' added to stack.\n", element);
+                }
+                break;
+            case 2:
+                if (top == -1) {
+                    printf("Stack is empty! Cannot remove elements.\n");
+                } else {
+                    element = stack[top--];
+                    printf("'%d' removed from stack.\n", element);
+                }
+                break;
+            case 3:
+                if (top == -1) {
+                    printf("Stack is empty.\n");
+                } else {
+                    printf("Current stack: ");
+                    for (int i = 0; i <= top; i++) {
+                        printf("%d ", stack[i]);
+                    }
+                    printf("\n");
+                }
+                break;
+            case 4:
+                return;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+
+// Queue implementation
+void queue_operations() {
+    int queue[MAX], front = -1, rear = -1;
+    int choice, element;
+
+    while (1) {
+        printf("\nQueue Operations:\n");
+        printf("1. Add element to queue\n");
+        printf("2. Remove element from queue\n");
+        printf("3. Show queue\n");
+        printf("4. Exit\n");
+        printf("Enter your choice (1/2/3/4): ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                if (rear == MAX - 1) {
+                    printf("Queue overflow! Cannot add more elements.\n");
+                } else {
+                    if (front == -1) {
+                        front = 0;  // First element added
+                    }
+                    printf("Enter the element to add to the queue: ");
+                    scanf("%d", &element);
+                    queue[++rear] = element;
+                    printf("'%d' added to queue.\n", element);
+                }
+                break;
+            case 2:
+                if (front == -1 || front > rear) {
+                    printf("Queue is empty! Cannot remove elements.\n");
+                } else {
+                    element = queue[front++];
+                    printf("'%d' removed from queue.\n", element);
+                    if (front > rear) {  // Reset the queue when empty
+                        front = rear = -1;
+                    }
+                }
+                break;
+            case 3:
+                if (front == -1 || front > rear) {
+                    printf("Queue is empty.\n");
+                } else {
+                    printf("Current queue: ");
+                    for (int i = front; i <= rear; i++) {
+                        printf("%d ", queue[i]);
+                    }
+                    printf("\n");
+                }
+                break;
+            case 4:
+                return;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+
+int main() {
+    int data_structure_choice;
+
+    printf("Welcome to Stack and Queue Operations!\n");
+    printf("Choose a data structure (1 for stack / 2 for queue): ");
+    scanf("%d", &data_structure_choice);
+
+    if (data_structure_choice == 1) {
+        stack_operations();
+    } else if (data_structure_choice == 2) {
+        queue_operations();
+    } else {
+        printf("Invalid choice. Please enter 1 for stack or 2 for queue.\n");
+    }
+
+    return 0;
+}
+
+
