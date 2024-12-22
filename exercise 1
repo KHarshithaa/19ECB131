@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_SIZE 8
+
+void menu(void) {
+    printf("\n1. Insert\n2. Delete\n3. Search\n4. Count the elements in the array\n5. Exit\nSelect your choice: ");
+}
+
+// Function to insert a value into the array
+void insert(int array[], int *size) {
+    if (*size < MAX_SIZE) {
+        int value;
+        printf("\nEnter the value to insert: ");
+        scanf("%d", &value);
+        array[*size] = value;
+        (*size)++;
+        printf("\nValue inserted successfully!\n");
+    } else {
+        printf("\nArray is full. Cannot insert new elements.\n");
+    }
+}
+
+// Function to delete a value from the array
+void delete(int array[], int *size) {
+    if (*size == 0) {
+        printf("\nArray is empty. Cannot delete elements.\n");
+        return;
+    }
+    int value, i, found = 0;
+    printf("\nEnter the value to delete: ");
+    scanf("%d", &value);
+
+    for (i = 0; i < *size; i++) {
+        if (array[i] == value) {
+            found = 1;
+            break;
+        }
+    }
+
+    if (found) {
+        for (int j = i; j < *size - 1; j++) {
+            array[j] = array[j + 1];
+        }
+        (*size)--;  // Decrease size
+        printf("\nValue deleted successfully!\n");
+    } else {
+        printf("\nValue not found in the array.\n");
+    }
+}
+
+// Function to search for a value in the array
+void search(int array[], int size) {
+    int value;
+    printf("\nEnter the value to search: ");
+    scanf("%d", &value);
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] == value) {
+            printf("\nValue %d found at index %d.\n", value, i);
+            return;
+        }
+    }
+    printf("\nValue not found in the array.\n");
+}
+
+// Function to count the number of elements in the array
+void count(int size) {
+    printf("\nThe number of elements in the array is: %d\n", size);
+}
+
+int main(void) {
+    int array[MAX_SIZE];
+    int size = 0;
+    int choice;
+
+    while (true) {
+        menu();
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: 
+                insert(array, &size);
+                break;
+            case 2: 
+                delete(array, &size);
+                break;
+            case 3: 
+                search(array, size);
+                break;
+            case 4: 
+                count(size);
+                break;
+            case 5: 
+                printf("\nExiting the program.\n");
+                return 0;
+            default: 
+                printf("\nWrong option. Try again.\n");
+        }
+    }
+}
