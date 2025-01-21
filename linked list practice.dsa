@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define a structure for a node in the doubly linked list
+struct Node {
+    int data;           // stores the value of the node
+    struct Node* next;  // points to the next node
+    struct Node* prev;  // points to the previous node
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); // Allocate memory for the new node
+    newNode->data = data;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    return newNode;
+}
+
+// Function to append a node to the end of the doubly linked list
+void append(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {  // If the list is empty
+        *head = newNode;  // Make the new node the head
+        return;
+    }
+
+    struct Node* last = *head;
+    while (last->next != NULL) {  // Traverse to the last node
+        last = last->next;
+    }
+
+    last->next = newNode;  // Link the last node to the new node
+    newNode->prev = last;  // Set the prev pointer of the new node to the last node
+}
+
+// Function to print the list in forward direction
+void printForward(struct Node* head) {
+    if (head == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
+
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d <-> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// Function to print the list in reverse direction
+void printReverse(struct Node* head) {
+    if (head == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
+
+    // Move to the last node
+    struct Node* last = head;
+    while (last->next != NULL) {
+        last = last->next;
+    }
+
+    // Print the list from the last node to the first node
+    while (last != NULL) {
+        printf("%d <-> ", last->data);
+        last = last->prev;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Append some data to the list
+    append(&head, 10);
+    append(&head, 20);
+    append(&head, 30);
+    append(&head, 40);
+
+    // Print the list in forward direction
+    printf("List in forward direction:\n");
+    printForward(head);
+
+    // Print the list in reverse direction
+    printf("List in reverse direction:\n");
+    printReverse(head);
+
+    return 0;
+}
